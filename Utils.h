@@ -31,7 +31,7 @@ class Utils {
   //String paramString; 
   
   public :
-    Utils(); // constructeur
+  	Utils(); // constructeur
   
 	//---- fonctions de réception sur le port Série
 	String waitingString(boolean debugIn); 
@@ -40,11 +40,15 @@ class Utils {
 	void waitForString(String stringForWaitIn);
 
 	//----- fonctions d'analyse de chaîne 
-	String testInstructionString (String chaineTest, String  chaineRefIn);
-	String testInstructionString (String chaineTest, String  chaineRefIn, boolean debugIn);
+	//String testInstructionString (String chaineTest, String  chaineRefIn); // obsolete - inversion ordre avec testInstructionLong 
+	//String testInstructionString (String chaineTest, String  chaineRefIn, boolean debugIn); // obsolete - inversion ordre avec testInstructionLong 
 
-	boolean testInstruction2(String chaineReception,String chaineTest, int nbParam, long paramsIn[]); // fonction initiale laissée en l'état
-	boolean testInstructionLong(String chaineReception,String chaineTest, int nbParam, long paramsIn[]); // fonction équivalente à utiliser
+	String testInstructionString (String  chaineRefIn, String chaineTest) ; // format idem Long sans debug 
+	String testInstructionString (String  chaineRefIn, String chaineTest, boolean debugIn); // format idem Long
+
+	boolean testInstruction2(String chaineReception,String chaineTest, int nbParam, long paramsIn[]); // fonction initiale laissée en l'état - obsolete
+	boolean testInstructionLong(String chaineReception,String chaineTest, int nbParam, long paramsIn[]); // fonction équivalente à utiliser - obsolete 
+
 
 	//------ fonctions de conversion chaine ---- 
 	long stringToLong(String chaineLong); 
