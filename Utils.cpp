@@ -53,7 +53,7 @@ String Utils::waitingString(boolean debugIn) {
 //-- forme sans drapeau  
 String Utils::waitingString() {
 
-  return(waitingString(false)); 
+	return(waitingString(false)); 
 }
 	
 //------- fonction d'attente d'une chaine donnée sur le port Série 
@@ -68,8 +68,11 @@ void Utils::waitForString(String stringForWaitIn) {
 //boolean Utils::testInstructionString (String chaineTest, String  chaineRefIn, String paramStringIn) {
 
 //boolean Utils::testInstructionString (String chaineTest, String  chaineRefIn) {
+
   
-String Utils::testInstructionString (String chaineTest, String  chaineRefIn, boolean debugIn) {
+//String Utils::testInstructionString (String chaineTest, String  chaineRefIn, boolean debugIn) {
+String Utils::testInstructionString (String  chaineRefIn,String chaineTest, boolean debugIn) { //--- forme idem Long = inversion chaineRef et chaine test 
+
 
      int posRef=chaineTest.length();// position de référence pour analyse (xxx) 
      
@@ -116,8 +119,19 @@ String Utils::testInstructionString (String chaineTest, String  chaineRefIn, boo
      
 } // fin test instruction String
 
-//--- forme dans debug
+/*
+//--- forme sans debug
 String Utils::testInstructionString (String chaineTest, String  chaineRefIn) {
+
+	return(testInstructionString(chaineTest, chaineRefIn, false)); 
+
+} // fin forme dans debug
+*/
+
+
+
+//--- forme idem Long sans debug 
+String Utils::testInstructionString (String  chaineRefIn,String chaineTest) {
 
 	return(testInstructionString(chaineTest, chaineRefIn, false)); 
 
