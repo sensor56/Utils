@@ -133,7 +133,7 @@ String Utils::testInstructionString (String chaineTest, String  chaineRefIn) {
 //--- forme idem Long sans debug 
 String Utils::testInstructionString (String  chaineRefIn,String chaineTest) {
 
-	return(testInstructionString(chaineTest, chaineRefIn, false)); 
+	return(testInstructionString( chaineRefIn, chaineTest, false)); 
 
 } // fin forme dans debug
 
