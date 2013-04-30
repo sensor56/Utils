@@ -34,8 +34,9 @@ class Utils {
   	Utils(); // constructeur
   
 	//---- fonctions de réception sur le port Série
-	String waitingString(boolean debugIn); 
-	String waitingString(); 
+	String waitingString(int asciiBreak, boolean debugIn); // valeur ascii à utiliser + debug
+	String waitingString(boolean debugIn); // valeur ascii = 10 (\n) par defaut + debug
+	String waitingString();  // valeur ascii = 10 (\n) par defaut
 
 	void waitForString(String stringForWaitIn);
 
