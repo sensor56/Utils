@@ -17,7 +17,7 @@
   
 
 //------- fonction d'attente d'un String sur le port Série ----- 
-String Utils::waitingString(boolean debugIn) {
+String Utils::waitingString(int asciiBreakIn, boolean debugIn) {
 
 
     int octetReception=0; // variable de réception octet
@@ -29,8 +29,13 @@ String Utils::waitingString(boolean debugIn) {
     
     octetReception=Serial.read(); // lit le 1er octet de la file d'attente    
 
-    if (octetReception==10) { // si Octet reçu est le saut de ligne 
-          if (debugIn)Serial.print ("Saut de ligne recu : ");          
+    if (octetReception==asciiBreakIn) { // si Octet reçu est le caractère ascii Break 
+          if (debugIn) {
+				Serial.print ("Ascii " );
+				Serial.print (asciiBreakIn);
+				Serial.print (" recu : ");   
+	   } // fin if debugIn 
+                  
            if (debugIn)Serial.print ("Chaine = "); // affiche la chaine recue
            if (debugIn)Serial.println (chaineOut); 
           delay(100); // pause
@@ -50,6 +55,11 @@ String Utils::waitingString(boolean debugIn) {
   return(chaineOut); 
 }
 
+//-- forme avec \n par defaut et drapeau   debug 
+String Utils::waitingString(boolean debugIn) {
+
+	return(waitingString(10,false)); // utilise asciiBreak = 10 = \n par défaut
+}
 //-- forme sans drapeau  
 String Utils::waitingString() {
 
