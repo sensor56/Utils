@@ -150,7 +150,7 @@ String Utils::testInstructionString (String  chaineRefIn,String chaineTest) {
 //--------------- testInstruction2 : test si instruction de la forme instruction(xxx, xxx, xxx, xxx, xxx) ou moins ------------
 
 //long* Utils::testInstruction2(String chaineReception, String chaineTest, int nbParam) { // reçoit chaine  et renvoie un tableau de long
-boolean Utils::testInstruction2(String chaineReception, String chaineTest, int nbParam, long paramsIn[]) { // reçoit chaine  et renvoie un booléen et modifie tableau
+boolean Utils::testInstruction2(String chaineReception, String chaineTest, int nbParam, long paramsIn[], boolean debugIn) { // reçoit chaine  et renvoie un booléen et modifie tableau
   
   long posRef=chaineTest.length();// position de référence pour analyse (xxx) 
   int posDecal=0; // nombre de position à décaler... 
@@ -166,7 +166,7 @@ boolean Utils::testInstruction2(String chaineReception, String chaineTest, int n
 
   if (chaineReception==chaineTest+")") { // si reçoit l'instruction chaineTest() - on renvoie false d'emblée
 
-     Serial.println(F("Instruction invalide !")); // affiche
+     if (debugIn) Serial.println(F("Instruction invalide !")); // affiche
       //arrayParamsOut=0;
       return(false); // renvoie 0 (équiv null en C++) si instruction invalide
  
@@ -174,9 +174,9 @@ boolean Utils::testInstruction2(String chaineReception, String chaineTest, int n
   else if (chaineReception.substring(0,posRef)==chaineTest) { // si reçoit l'instruction chaineTest(000)
   // nb substring : dernier caractere exclu
 
-    Serial.print(F("Arduino va executer : ")); 
+    if (debugIn) Serial.print(F("Arduino va executer : ")); 
 
-    Serial.print(chaineTest); // affiche 
+    if (debugIn) Serial.print(chaineTest); // affiche 
     
     for (int i=0; i<nbParam; i++) { // défile les n paramètres
     
@@ -229,7 +229,7 @@ boolean Utils::testInstruction2(String chaineReception, String chaineTest, int n
           
         } // fin else 
         
-        Serial.print( paramsIn[i]); // affiche 
+        if (debugIn) Serial.print( paramsIn[i]); // affiche 
         
         //Serial.println(posDecal); // debug
         
@@ -239,14 +239,14 @@ boolean Utils::testInstruction2(String chaineReception, String chaineTest, int n
         //if ((chaineReception.substring(posRef+posDecal,posRef+posDecal+1)==",") && ((posRef+posDecal+1)<(chaineTest.length()+(nbParam*4)-1))) { // si virgule attendue présente et si pas long maxi
 	if ((chaineReception.substring(posRef+posDecal,posRef+posDecal+1)==",") && ((posRef+posDecal+1)<chaineReception.length()) && (i!=nbParam-1)) { // si virgule attendue présente et si pas long maxi et si pas dernier paramètre 
         
-          Serial.print(","); // affiche
+          if (debugIn) Serial.print(","); // affiche
           posRef=posRef+posDecal+1; //décale position de référence de n+1 caractères pour prise en compte nouvelle valeur
   
         } // fin if "," 
   
 	else if( (chaineReception.substring(posRef+posDecal,posRef+posDecal+1)==")") && (i!=nbParam-1) ){ // si parenthèses avant nombre de paramètres attendus = invalide
 
-      Serial.println(F("Instruction invalide !")); // affiche
+      if (debugIn) Serial.println(F("Instruction invalide !")); // affiche
 
       return(false); // renvoie false si instruction invalide
 
@@ -258,8 +258,8 @@ boolean Utils::testInstruction2(String chaineReception, String chaineTest, int n
     //if ( (chaineReception.substring(posRef+posDecal,posRef+posDecal+1)==")") && (posDecal<=1)){ // si fermeture parenthèse et si un décalage depuis dernière virgule = instruction valide
   if (chaineReception.substring(posRef+posDecal,posRef+posDecal+1)==")") { // si fermeture parenthèse et si aucun décalage depuis dernière valeur = instruction valide
   
-      Serial.println(F(")")); // affiche
-      Serial.println(F("Instruction valide !")); // affiche
+      if (debugIn) Serial.println(F(")")); // affiche
+      if (debugIn) Serial.println(F("Instruction valide !")); // affiche
       //return(true); // renvoie true si instruction valide 
      //return arrayParamsOut; 
      return(true); // renvoie 0 (équiv null en C++) // test debug 
@@ -268,7 +268,7 @@ boolean Utils::testInstruction2(String chaineReception, String chaineTest, int n
     
     else { 
             
-      Serial.println(F("Instruction invalide !")); // affiche
+      if (debugIn) Serial.println(F("Instruction invalide !")); // affiche
       //arrayParamsOut=0;
       return(false); // renvoie 0 (équiv null en C++) si instruction invalide
  
@@ -282,13 +282,26 @@ boolean Utils::testInstruction2(String chaineReception, String chaineTest, int n
 
 //------------------- fin test instruction2 ------------ 
 
+//------------------ test instruction2 sans debugIn ------------ 
+boolean Utils::testInstruction2(String chaineReception, String chaineTest, int nbParam, long paramsIn[]) { // reçoit chaine  et renvoie un booléen et modifie tableau
+
+	return(testInstruction2(chaineReception,chaineTest, nbParam, paramsIn, false)); 
+
+}// fin fonction testInstruction2  
+
 //---- fonction idem avec nom plus explicite --- 
 boolean Utils::testInstructionLong(String chaineReception, String chaineTest, int nbParam, long paramsIn[]) { 
 
-	return(testInstruction2(chaineReception,chaineTest, nbParam, paramsIn)); 
+	return(testInstruction2(chaineReception,chaineTest, nbParam, paramsIn,false)); 
 
 } // fin testInstructionLong
 
+//---- fonction idem avec nom plus explicite avec debug --- 
+boolean Utils::testInstructionLong(String chaineReception, String chaineTest, int nbParam, long paramsIn[], boolean debugIn) { 
+
+	return(testInstruction2(chaineReception,chaineTest, nbParam, paramsIn, debugIn) ); 
+
+} // fin testInstructionLong
 
 // ---------- fonction de conversion d'un String numérique en long
 
