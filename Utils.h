@@ -48,7 +48,9 @@ class Utils {
 	String testInstructionString (String  chaineRefIn, String chaineTest, boolean debugIn); // format idem Long
 
 	boolean testInstruction2(String chaineReception,String chaineTest, int nbParam, long paramsIn[]); // fonction initiale laissée en l'état - obsolete
+	boolean testInstruction2(String chaineReception,String chaineTest, int nbParam, long paramsIn[],boolean debugIn); // fonction initiale laissée en l'état - obsolete
 	boolean testInstructionLong(String chaineReception,String chaineTest, int nbParam, long paramsIn[]); // fonction équivalente à utiliser - obsolete 
+	boolean testInstructionLong(String chaineReception,String chaineTest, int nbParam, long paramsIn[], boolean debugIn); // fonction équivalente à utiliser - obsolete 
 
 
 	//------ fonctions de conversion chaine ---- 
