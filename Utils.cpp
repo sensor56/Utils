@@ -343,7 +343,7 @@ float Utils::stringToFloat(String chaineFloat) { // la fonction recoit la chaine
   else { // si le point est présent dans la chaine on calcule la valeur correspondante float en se basant sur la position du point
  
     floatOut= stringToLong(chaineFloat.substring(indexPoint+1, chaineFloat.length())); // récupère valeur après la virgule
-    while (abs(floatOut)>1) floatOut=floatOut/10.0; // fait passer la valeur en position derrière virgule
+    while (abs(floatOut)>=1) floatOut=floatOut/10.0; // fait passer la valeur en position derrière virgule
     floatOut=floatOut+stringToLong(chaineFloat.substring(0,indexPoint)); // récupère et ajoute valeur numérique avant virgule
     
   }
