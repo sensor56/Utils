@@ -112,7 +112,7 @@ String Utils::testInstructionString (String  chaineRefIn,String chaineTest, bool
     else { // si chaine test absente 
             
        if (debugIn) Serial.println(F("Instruction invalide !")); // affiche
-      return(0); // renvoie null 
+      return(""); // renvoie null 
  
     } // fin else
     
@@ -121,7 +121,7 @@ String Utils::testInstructionString (String  chaineRefIn,String chaineTest, bool
           else { // si pas bonne chaine Test présente
      
            if (debugIn) Serial.print(F(".")); // affiche
-          return(0); // renvoie null si instruction invalide
+          return(""); // renvoie null si instruction invalide
           
      } // fin else 
 
